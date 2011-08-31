@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html><head><title>Trees</title></head>
+<body>
+
+<wo:if condition="$message"><h3><wo:str value="$message" /></h3></wo:if>
+
+<wo:form>
+<p>
+	Add Item with Name
+	<wo:textfield value="$objName1" />
+	under Parent with Name
+	<wo:textfield value="$addToParentName" />
+</p>
+<p>
+	Move Item with Name 
+	<wo:textfield value="$objName2" /> 
+	under Parent with Name 
+	<wo:textfield value="$moveFromParentName" />
+	to Under Parent with Name
+	<wo:textfield value="$moveToParentName" />	
+</p>
+<wo:submit action="$editTree" /> or <wo:link action="$clearEdits">Clear</wo:link>
+</wo:form>
+
+<table border="1">
+<tr>
+	<td/>
+	<th>Trees, Old Variety</th>
+	<th>Trees, via Closure</th>
+</tr>
+
+<tr>
+	<td/>
+	<td colspan="2" align="center">Are Equal? <wo:if condition="$treesAreEqual">YES</wo:if><wo:else>NO</wo:else></td>
+</tr>
+
+<tr>
+	<th>parent</th>
+	<td>
+		<ul>
+		<wo:loop list="$pObjs" item="$pObj">
+			<li><wo:str value="$pObj" />, parent = <wo:str value="$pObj.parent" /></li>
+		</wo:loop>
+		</ul>
+	</td>
+	<td>
+		<ul>
+		<wo:loop list="$cObjs" item="$cObj">
+			<li><wo:str value="$cObj" />, parent = <wo:str value="$cObj.parent" /></li>
+		</wo:loop>
+		</ul>
+	</td>
+</tr>
+
+<tr>
+	<th>children</th>
+	<td>
+		<ul>
+		<wo:loop list="$pObjs" item="$pObj">
+
+			<li><wo:str value="$pObj" />, children:
+			<ul>
+			<wo:loop list="$pObj.children" item="$subPObj" >
+				<li><wo:str value="$subPObj" /></li>
+			</wo:loop>
+			</ul>
+			</li>
+	
+		</wo:loop>
+		</ul>
+	
+	</td>
+	<td>
+		<ul>
+		<wo:loop list="$cObjs" item="$cObj">
+
+			<li><wo:str value="$cObj" />, children:
+			<ul>
+			<wo:loop list="$cObj.children" item="$subCObj" >
+				<li><wo:str value="$subCObj" /></li>
+			</wo:loop>
+			</ul>
+			</li>
+	
+		</wo:loop>
+		</ul>
+	</td>
+</tr>
+
+<tr>
+	<th>descendants</th>
+	<td>
+		<ul>
+		<wo:loop list="$pObjs" item="$pObj">
+
+			<li><wo:str value="$pObj" />, descendents:
+			<ul>
+			<wo:loop list="$pObj.descendants" item="$subPObj" >
+				<li><wo:str value="$subPObj" /></li>
+			</wo:loop>
+			</ul>
+			</li>
+	
+		</wo:loop>
+		</ul>
+	
+	</td>
+	<td>
+		<ul>
+		<wo:loop list="$cObjs" item="$cObj">
+
+			<li><wo:str value="$cObj" />, descendents:
+			<ul>
+			<wo:loop list="$cObj.descendants" item="$subCObj" >
+				<li><wo:str value="$subCObj" /></li>
+			</wo:loop>
+			</ul>
+			</li>
+	
+		</wo:loop>
+		</ul>
+	</td>
+</tr>
+
+<tr>
+	<th>ancestors</th>
+	<td>
+		<ul>
+		<wo:loop list="$pObjs" item="$pObj">
+
+			<li><wo:str value="$pObj" />, ancestors:
+			<ul>
+			<wo:loop list="$pObj.ancestors" item="$subPObj" >
+				<li><wo:str value="$subPObj" /></li>
+			</wo:loop>
+			</ul>
+			</li>
+	
+		</wo:loop>
+		</ul>
+	
+	</td>
+	<td>
+		<ul>
+		<wo:loop list="$cObjs" item="$cObj">
+
+			<li><wo:str value="$cObj" />, ancestors:
+			<ul>
+			<wo:loop list="$cObj.ancestors" item="$subCObj" >
+				<li><wo:str value="$subCObj" /></li>
+			</wo:loop>
+			</ul>
+			</li>
+	
+		</wo:loop>
+		</ul>
+	</td>
+</tr>
+
+<tr>
+	<th>fullName</th>
+	<td>
+		<ul>
+		<wo:loop list="$pObjs" item="$pObj">
+			<li><wo:str value="$pObj" />, fullName: "<wo:str value="$pObj.fullName" />"</li>
+		</wo:loop>
+		</ul>
+	</td>
+	<td>
+		<ul>
+		<wo:loop list="$cObjs" item="$cObj">
+			<li><wo:str value="$cObj" />, fullName: "<wo:str value="$cObj.fullName" />"</li>
+		</wo:loop>
+		</ul>
+	</td>
+</tr>
+</table>
+
+</body>
+</html>

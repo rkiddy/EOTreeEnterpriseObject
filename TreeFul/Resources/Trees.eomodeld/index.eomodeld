@@ -1,0 +1,11 @@
+{
+    EOModelVersion = "2.1"; 
+    adaptorName = JDBC; 
+    connectionDictionary = {URL = "jdbc:mysql://localhost/trees"; password = alexna11; username = ray; }; 
+    entities = (
+        {className = "org.ganymede.eo.CTreeObject"; name = CTree; }, 
+        {className = "com.webobjects.eocontrol.EOGenericRecord"; name = CTreeClosure; }, 
+        {className = "org.ganymede.eo.PTreeObject"; name = PTree; }
+    ); 
+    userInfo = {"_EntityModeler" = {reverseEngineered = Y; }; }; 
+}

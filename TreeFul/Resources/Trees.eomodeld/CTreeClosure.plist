@@ -1,0 +1,33 @@
+{
+    attributes = (
+        {
+            allowsNull = Y; 
+            columnName = distance; 
+            externalType = int; 
+            name = distance; 
+            valueClassName = NSNumber; 
+            valueType = i; 
+        }, 
+        {
+            allowsNull = N; 
+            columnName = down; 
+            externalType = int; 
+            name = down; 
+            prototypeName = id; 
+        }, 
+        {
+            allowsNull = N; 
+            columnName = up; 
+            externalType = int; 
+            name = up; 
+            prototypeName = id; 
+        }
+    ); 
+    attributesUsedForLocking = (distance, down, up); 
+    className = "com.webobjects.eocontrol.EOGenericRecord"; 
+    classProperties = (distance, down, up); 
+    externalName = "c_tree_closure"; 
+    fetchSpecificationDictionary = {}; 
+    name = CTreeClosure; 
+    primaryKeyAttributes = (down, up); 
+}

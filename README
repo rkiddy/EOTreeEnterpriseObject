@@ -1,0 +1,19 @@
+
+An EOTreeObject is a EOEnterpriseObject in a table in which there is some sort of tree structure. For example, one
+way to implement this is to have a "parent" pointer in every EO. There are other ways to do it. A Closure table can
+implement a tree structure and several common operations may be much more efficient.
+
+This class will allow you to use either implementation stragtegy with the same API.
+
+This code is not all working at this point, but the design is there and some things are done. The WebObjects application
+is launchable and demonstrates the current functionality.
+
+There is an SQL file for creating the two tables demonstrating the two implementations. There are tests in the
+TestTreeSuite. When they are implemented and pass, the code will be golden. The WebObjects application displays
+the two trees side by side. One can use this app to test the code, adding or removing elements and checking that
+the two trees do the same things as a result of any changes.
+
+The EOTreeObject and EOTree classes are, right now, in the TreeFul application. But they will be pulled out into a
+re-usable form as things progress.
+
+-rrk 2011/08/31

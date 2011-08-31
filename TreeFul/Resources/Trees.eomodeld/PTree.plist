@@ -1,0 +1,42 @@
+{
+    attributes = (
+        {columnName = name; name = name; prototypeName = varchar50; }, 
+        {
+            allowsNull = Y; 
+            columnName = "parent_pk"; 
+            externalType = int; 
+            name = parentPk; 
+            prototypeName = id; 
+        }, 
+        {
+            allowsNull = N; 
+            columnName = pk; 
+            externalType = int; 
+            name = pk; 
+            prototypeName = id; 
+        }
+    ); 
+    attributesUsedForLocking = (name, parentPk, pk); 
+    className = "org.ganymede.eo.PTreeObject"; 
+    classProperties = (children, name, parent, parentPk); 
+    externalName = "p_tree"; 
+    fetchSpecificationDictionary = {}; 
+    name = PTree; 
+    primaryKeyAttributes = (pk); 
+    relationships = (
+        {
+            destination = PTree; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = parentPk; sourceAttribute = pk; }); 
+            name = children; 
+        }, 
+        {
+            destination = PTree; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = pk; sourceAttribute = parentPk; }); 
+            name = parent; 
+        }
+    ); 
+}

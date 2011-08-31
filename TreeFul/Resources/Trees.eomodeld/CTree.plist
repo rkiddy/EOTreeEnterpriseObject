@@ -1,0 +1,19 @@
+{
+    attributes = (
+        {columnName = name; name = name; prototypeName = varchar50; width = 32; }, 
+        {
+            allowsNull = N; 
+            columnName = pk; 
+            externalType = int; 
+            name = pk; 
+            prototypeName = id; 
+        }
+    ); 
+    attributesUsedForLocking = (name, pk); 
+    className = "org.ganymede.eo.CTreeObject"; 
+    classProperties = (name, pk); 
+    externalName = "c_tree"; 
+    fetchSpecificationDictionary = {}; 
+    name = CTree; 
+    primaryKeyAttributes = (pk); 
+}
