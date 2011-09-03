@@ -88,9 +88,9 @@ public class PTreeObject extends EOGenericRecord implements EOTreeObject {
 		this.takeStoredValueForKey(nextParent, "parent");
 	}
 
-	public void moveElementToParent(EOTreeObject element, EOTreeObject nextParent) {
-		if (element == null || nextParent == null)
-			return;
+	public void moveElementToParent(EOTreeObject nextParent) {
+
+		if (nextParent == null) return;
 
 		this.takeStoredValueForKey(nextParent, "parent");
 	}

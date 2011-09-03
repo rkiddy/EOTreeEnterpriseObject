@@ -17,7 +17,7 @@ public interface EOTreeObject extends NSKeyValueCoding {
 
 	public void addElementUnderParent(EOTreeObject nextParent);
 
-	public void moveElementToParent(EOTreeObject element, EOTreeObject nextParent);
+	public void moveElementToParent(EOTreeObject nextParent);
 
 	public boolean equals(EOTreeObject element);
 }

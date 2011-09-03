@@ -43,10 +43,12 @@ public class Main extends ERXComponent {
 	public String objName1;
 	public String objName2;
 	public String addToParentName;
-	public String moveFromParentName;
 	public String moveToParentName;
 
 	public WOActionResults editTree() {
+
+		message = null;
+
 		if (objName1 == null && objName2 == null) {
 			message = "Please give me a node name to add or move.";
 			return null;
@@ -78,9 +80,33 @@ public class Main extends ERXComponent {
 			cObj.addElementUnderParent(cParent);
 
 			ec.saveChanges();
+			
+			// I have to do this (really???) because I add an object and the parent does not immediately see
+			// it as one of its children. This only happens with the PTree. Something else is probably going on
+			// here. What is it? -rrk
+			//
+			ec.refaultObject(pParent);
+			ec.refaultObject(cParent);
 		}
 
-		message = null;
+		if (moveToParentName != null) {
+
+			// Not working right now. -rrk 2011/09/02
+
+			message = "Move of element is disabled for now.";
+
+//			PTreeObject pObj = (PTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "PTree", "name", objName2);
+//			PTreeObject pParent = (PTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "PTree", "name", objName2);
+//
+//			CTreeObject cObj = (CTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "CTree", "name", moveToParentName);
+//			CTreeObject cParent = (CTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "CTree", "name", moveToParentName);
+//
+//			pObj.moveElementToParent(pParent);
+//			cObj.moveElementToParent(cParent);
+//
+//			ec.saveChanges();
+		}
+
 		objName1 = null;
 		objName2 = null;
 		addToParentName = null;

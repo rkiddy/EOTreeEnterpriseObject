@@ -135,11 +135,6 @@ public class CTreeObject extends EOGenericRecord implements EOTreeObject {
 
 		System.out.println("inserted0: "+this.editingContext().insertedObjects());
 
-//		NSArray rows = EOUtilities.rawRowsForSQL(this.editingContext(), "Trees", "select max(pk) from c_tree_closure", new NSArray("max"));
-//		System.out.println("for pk: "+rows);
-//		Number maxPk = (Number)((NSDictionary)rows.get(0)).objectForKey("max");
-//		System.out.println("maxPk: "+maxPk);
-		
 		// Create the parent join
 		//
 		EOEnterpriseObject parentJoin = EOUtilities.createAndInsertInstance(this.editingContext(), "CTreeClosure");
@@ -178,6 +173,6 @@ public class CTreeObject extends EOGenericRecord implements EOTreeObject {
 		}
 	}
 
-	public void moveElementToParent(EOTreeObject element, EOTreeObject nextParent) {		
+	public void moveElementToParent(EOTreeObject nextParent) {
 	}
 }
