@@ -22,7 +22,7 @@ public class Main extends ERXComponent {
 	public boolean treesAreEqual() {
 		EOTreeObject pTreeElement = this.pObjs().get(0);
 		EOTree pTree = new EOTree(pTreeElement);
-		
+
 		EOTreeObject cTreeElement = this.cObjs().get(0);
 		EOTree cTree = new EOTree(cTreeElement);
 
@@ -43,25 +43,28 @@ public class Main extends ERXComponent {
 	public String objName1;
 	public String objName2;
 	public String addToParentName;
-	public String moveToParentName;
 
 	public WOActionResults editTree() {
 
 		message = null;
 
 		if (objName1 == null && objName2 == null) {
-			message = "Please give me a node name to add or move.";
+			message = "Please give me a node name to add or remove.";
 			return null;
 		}
-		if ((addToParentName == null && moveToParentName == null) ||
-				(addToParentName != null && moveToParentName != null)) {
+		if (addToParentName != null && objName2 != null) {
 			message = "Please pick either a tree element to add to or a tree element to move to, but not both.";
 			return null;
 		}
 
+		System.out.println("objName1: "+objName1);
+		System.out.println("objName2: "+objName2);
+		System.out.println("addToParentName: "+addToParentName);
+
 		EOEditingContext ec = session().defaultEditingContext();
 
 		if (addToParentName != null) {
+			System.out.println("Adding element under parent: "+addToParentName);
 
 			PTreeObject pObj = (PTreeObject)EOUtilities.createAndInsertInstance(ec, "PTree");
 			pObj.takeValueForKey(objName1, "name");
@@ -72,7 +75,7 @@ public class Main extends ERXComponent {
 			ec.saveChanges();
 
 			System.out.println("after save: pObj is "+pObj+" and cObj is "+cObj);
-			
+
 			PTreeObject pParent = (PTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "PTree", "name", addToParentName);
 			pObj.addElementUnderParent(pParent);
 
@@ -80,7 +83,7 @@ public class Main extends ERXComponent {
 			cObj.addElementUnderParent(cParent);
 
 			ec.saveChanges();
-			
+
 			// I have to do this (really???) because I add an object and the parent does not immediately see
 			// it as one of its children. This only happens with the PTree. Something else is probably going on
 			// here. What is it? -rrk
@@ -89,29 +92,21 @@ public class Main extends ERXComponent {
 			ec.refaultObject(cParent);
 		}
 
-		if (moveToParentName != null) {
+		if (objName2 != null) {
+			System.out.println("Removing element: "+objName2);
 
-			// Not working right now. -rrk 2011/09/02
+			pObj = (PTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "PTree", "name", objName2);
+			pObj.removeElement();
+			ec.deleteObject(pObj);
 
-			message = "Move of element is disabled for now.";
+			cObj = (CTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "CTree", "name", objName2);
+			cObj.removeElement();
+			ec.deleteObject(cObj);
 
-//			PTreeObject pObj = (PTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "PTree", "name", objName2);
-//			PTreeObject pParent = (PTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "PTree", "name", objName2);
-//
-//			CTreeObject cObj = (CTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "CTree", "name", moveToParentName);
-//			CTreeObject cParent = (CTreeObject)EOUtilities.objectMatchingKeyAndValue(ec, "CTree", "name", moveToParentName);
-//
-//			pObj.moveElementToParent(pParent);
-//			cObj.moveElementToParent(cParent);
-//
-//			ec.saveChanges();
+			ec.saveChanges();
 		}
 
-		objName1 = null;
-		objName2 = null;
-		addToParentName = null;
-		moveToParentName = null;
-		return null;
+		return pageWithName(Main.class);
 	}
 
 	public WOActionResults clearEdits() {
@@ -119,7 +114,6 @@ public class Main extends ERXComponent {
 		objName1 = null;
 		objName2 = null;
 		addToParentName = null;
-		moveToParentName = null;
 		return null;
 	}
 }

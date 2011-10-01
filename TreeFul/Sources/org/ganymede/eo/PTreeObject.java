@@ -4,6 +4,7 @@ import com.webobjects.eoaccess.EOUtilities;
 import com.webobjects.eocontrol.EOEditingContext;
 import com.webobjects.eocontrol.EOGenericRecord;
 import com.webobjects.foundation.NSArray;
+import com.webobjects.foundation.NSKeyValueCoding;
 import com.webobjects.foundation.NSMutableArray;
 import com.webobjects.foundation.NSMutableSet;
 
@@ -88,10 +89,10 @@ public class PTreeObject extends EOGenericRecord implements EOTreeObject {
 		this.takeStoredValueForKey(nextParent, "parent");
 	}
 
-	public void moveElementToParent(EOTreeObject nextParent) {
+	public void removeElement() {
+		if (this.children() != null && this.children().count() > 0)
+			throw new IllegalArgumentException("cannot remove a tree element that has children");
 
-		if (nextParent == null) return;
-
-		this.takeStoredValueForKey(nextParent, "parent");
+		this.takeStoredValueForKey(NSKeyValueCoding.NullValue, "parent");
 	}
 }

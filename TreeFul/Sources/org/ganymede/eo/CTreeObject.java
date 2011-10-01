@@ -52,7 +52,7 @@ public class CTreeObject extends EOGenericRecord implements EOTreeObject {
 			results.add(child);
 		}
 
-		System.out.println("descendants: "+results);
+		//System.out.println("descendants: "+results);
 
 		return results.immutableClone();
 	}
@@ -76,7 +76,7 @@ public class CTreeObject extends EOGenericRecord implements EOTreeObject {
 			results.add(child);
 		}
 
-		System.out.println("children: "+results);
+		//System.out.println("children: "+results);
 
 		return results.immutableClone();
 	}
@@ -122,7 +122,7 @@ public class CTreeObject extends EOGenericRecord implements EOTreeObject {
 			parent = EOUtilities.objectMatchingKeyAndValue(this.editingContext(), "CTree", "pk", upPk);
 		}
 
-		System.out.println("parent: "+parent);
+		//System.out.println("parent: "+parent);
 
 		return (CTreeObject)parent;
 	}
@@ -133,7 +133,7 @@ public class CTreeObject extends EOGenericRecord implements EOTreeObject {
 
 	public void addElementUnderParent(EOTreeObject nextParent) {
 
-		System.out.println("inserted0: "+this.editingContext().insertedObjects());
+		//System.out.println("inserted0: "+this.editingContext().insertedObjects());
 
 		// Create the parent join
 		//
@@ -142,7 +142,7 @@ public class CTreeObject extends EOGenericRecord implements EOTreeObject {
 		parentJoin.takeValueForKey(this.valueForKey("pk"), "up");
 		parentJoin.takeValueForKey(0, "distance");
 
-		System.out.println("parentJoin: "+parentJoin);
+		//System.out.println("parentJoin: "+parentJoin);
 
 		// Find all the ancestor join objects of the parent
 		//
@@ -156,7 +156,7 @@ public class CTreeObject extends EOGenericRecord implements EOTreeObject {
 		//
 		for (EOEnterpriseObject join : joins) {
 			EOEnterpriseObject nextJoin = EOUtilities.createAndInsertInstance(this.editingContext(), "CTreeClosure");
-			System.out.println("template join: "+join);
+			//System.out.println("template join: "+join);
 
 			// The new join keeps the ancestor (and so the up link) but takes the new object as the down.
 			//
@@ -168,11 +168,19 @@ public class CTreeObject extends EOGenericRecord implements EOTreeObject {
 			int distance = ((Number)join.valueForKey("distance")).intValue();
 			distance++;
 			nextJoin.takeValueForKey(distance, "distance");
-			System.out.println("next join: "+nextJoin);
-
+			//System.out.println("next join: "+nextJoin);
 		}
+
+		//this.editingContext().refaultObject(nextParent);
 	}
 
-	public void moveElementToParent(EOTreeObject nextParent) {
+	public void removeElement() {
+		if (this.children() != null && this.children().count() > 0)
+			throw new IllegalArgumentException("cannot remove a tree element that has children");
+
+		NSArray<EOEnterpriseObject> joins = EOUtilities.objectsMatchingKeyAndValue(this.editingContext(), "CTreeClosure", "down", this.valueForKey("pk"));
+		for (EOEnterpriseObject join : joins) {
+			this.editingContext().deleteObject(join);
+		}
 	}
 }

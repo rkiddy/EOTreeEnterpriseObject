@@ -1,9 +1,9 @@
 package org.ganymede.eo;
 
+import com.webobjects.eocontrol.EOEnterpriseObject;
 import com.webobjects.foundation.NSArray;
-import com.webobjects.foundation.NSKeyValueCoding;
 
-public interface EOTreeObject extends NSKeyValueCoding {
+public interface EOTreeObject extends EOEnterpriseObject {
 
 	public String fullName();
 
@@ -17,7 +17,7 @@ public interface EOTreeObject extends NSKeyValueCoding {
 
 	public void addElementUnderParent(EOTreeObject nextParent);
 
-	public void moveElementToParent(EOTreeObject nextParent);
+	public void removeElement();
 
 	public boolean equals(EOTreeObject element);
 }
